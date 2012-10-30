@@ -12,60 +12,120 @@
   <packaging>pom</packaging>
 
   <name>continuous-deployment-deploy</name>
- <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.0.1</version>
-                <configuration>
-                    <container>
-                        <containerId>jboss6x</containerId>
-                        <type>remote</type>
-                    </container>
-                    <configuration>
-                        <type>runtime</type>
-                        <properties>
-                        	<cargo.hostname>localhost</cargo.hostname>
-                        	<cargo.rmi.port>1099</cargo.rmi.port>
-                        </properties>
-                    </configuration>
-                    <deployer>
-                        <deployables>
+  <build>
+<plugins>
+<plugin>
+  <groupId>org.codehaus.cargo</groupId>
+  <artifactId>cargo-maven2-plugin</artifactId>
+  <version>1.3.0</version>
+  <configuration>
+    <container>
+      <containerId>jboss6x</containerId>
+      <type>remote</type>
+    </container>
+    <configuration>
+      <type>runtime</type>
+                          <deployables>
                             <deployable>
-                                <groupId>com.wakaleo.gameoflife</groupId>
-                                <artifactId>gameoflife-web</artifactId>
+                                <groupId>uk.co.daveshepherd.examples</groupId>
+                                <artifactId>continuous-deployment-web</artifactId>
                                 <type>war</type>
-                                <pingURL>http://localhost:8080/gameoflife/</pingURL>
+                                <pingURL>http://localhost:8080/continuous-deployment-web/</pingURL>
                             </deployable>
                         </deployables>
-                    </deployer>
-                </configuration>
-            </plugin>
-        </plugins>
+      <properties>
+                        	<cargo.hostname>10.11.12.53</cargo.hostname>
+                        	<cargo.rmi.port>1099</cargo.rmi.port>
+      </properties>
+    </configuration>
+  </configuration>
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.integration</groupId>
+      <artifactId>jboss-profileservice-spi</artifactId>
+      <version>5.1.0.GA</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.jbossas</groupId>
+      <artifactId>jboss-as-client</artifactId>
+      <version>5.1.0.GA</version>
+      <type>pom</type>
+    </dependency>
+  </dependencies>
+</plugin>
+</plugins>
     </build>
     <dependencies>
         <dependency>
-            <groupId>com.wakaleo.gameoflife</groupId>
-            <artifactId>gameoflife-web</artifactId>
+            <groupId>uk.co.daveshepherd.examples</groupId>
+            <artifactId>continuous-deployment-web</artifactId>
             <type>war</type>
-            <version>0.9.67-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-    <properties>
-        <tomcat.manager.url>http://localhost:8888/manager</tomcat.manager.url>
+    <!--properties>
         <jboss.username>admin</jboss.username>
         <jboss.password>password</jboss.password>
-    </properties>
-    <profiles>
+    </properties-->
+    <!--profiles>
         <profile>
             <id>uat</id>
             <properties>
                 <tomcat.manager.url>http://localhost:8889/manager</tomcat.manager.url>
             </properties>
         </profile>
-    </profiles>
+    </profiles-->
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+<pluginRepositories>
+  <pluginRepository>
+    <id>repository.jboss.org_thirdparty-releases</id>
+    <name>JBoss.org third party releases repository</name>
+    <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </pluginRepository>
+  <pluginRepository>
+    <id>repository.jboss.org_thirdparty-uploads</id>
+    <name>JBoss.org third party uploads repository</name>
+    <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-uploads</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </pluginRepository>
+</pluginRepositories>
+
+<repositories>
+  <repository>
+    <id>repository.jboss.org_thirdparty-releases</id>
+    <name>JBoss.org third party releases repository</name>
+    <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </repository>
+  <repository>
+    <id>repository.jboss.org_thirdparty-uploads</id>
+    <name>JBoss.org third party uploads repository</name>
+    <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-uploads</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </repository>
+</repositories>
 
 </project>
