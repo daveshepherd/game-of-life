@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>uk.co.daveshepherd.examples</groupId>
+    <artifactId>continuous-deployment-example</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>continuous-deployment-deploy</artifactId>
+  <packaging>pom</packaging>
+
+  <name>continuous-deployment-deploy</name>
+ <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.0.1</version>
+                <configuration>
+                    <container>
+                        <containerId>jboss6x</containerId>
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                        	<cargo.hostname>10.11.12.53</cargo.hostname>
+                        	<cargo.rmi.port>1099</cargo.rmi.port>
+                        </properties>
+                    </configuration>
+                    <deployer>
+                        <deployables>
+                            <deployable>
+                                <groupId>uk.co.daveshepherd.examples</groupId>
+                                <artifactId>continuous-deployment-web</artifactId>
+                                <type>war</type>
+                                <pingURL>http://localhost:8080/continuous-deployment-web/</pingURL>
+                            </deployable>
+                        </deployables>
+                    </deployer>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.wakaleo.gameoflife</groupId>
+            <artifactId>gameoflife-web</artifactId>
+            <type>war</type>
+            <version>0.9.67-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <properties>
+        <tomcat.manager.url>http://localhost:8888/manager</tomcat.manager.url>
+        <jboss.username>admin</jboss.username>
+        <jboss.password>password</jboss.password>
+    </properties>
+    <profiles>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <tomcat.manager.url>http://localhost:8889/manager</tomcat.manager.url>
+            </properties>
+        </profile>
+    </profiles>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+</project>
