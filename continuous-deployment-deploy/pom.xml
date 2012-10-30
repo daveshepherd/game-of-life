@@ -78,7 +78,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-<pluginRepositories>
+<!--pluginRepositories>
   <pluginRepository>
     <id>repository.jboss.org_thirdparty-releases</id>
     <name>JBoss.org third party releases repository</name>
@@ -126,6 +126,6 @@
       <enabled>false</enabled>
     </snapshots>
   </repository>
-</repositories>
+</repositories-->
 
 </project>
